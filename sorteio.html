@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sorteador de Números</title>
+	<style>
+		#numero {
+			font-size: 100px;
+			color: red;
+			font-weight: bold;
+		}
+		#sorteados{
+			font-size: 20px;
+			color: blue;
+			font-weight: bold;
+		}
+	</style>
+	<script>
+		var sorteador = null;
+		var numerosSorteados = [];
+
+		function Sorteador(inicio, fim) {
+			this.numeros = [];
+			for (var i = inicio; i <= fim; i++) {
+				this.numeros.push(i);
+			}
+			this.sorteados = [];
+
+			this.sortear = function() {
+				if (this.numeros.length == this.sorteados.length) {
+					return null;
+				}
+
+				var numero = null;
+				while (numero == null) {
+					var candidato = this.numeros[Math.floor(Math.random() * this.numeros.length)];
+					if (this.sorteados.indexOf(candidato) == -1) {
+						numero = candidato;
+						this.sorteados.push(numero);
+					}
+				}
+
+				return numero;
+			}
+		}
+
+		function sortear() {
+			var inicio = parseInt(document.getElementById("inicio").value);
+			var fim = parseInt(document.getElementById("fim").value);
+			sorteador = new Sorteador(inicio, fim);
+			var resultado = sorteador.sortear();
+			while (numerosSorteados.includes(resultado)) {
+				resultado = sorteador.sortear();
+			}
+			if (resultado == null) {
+				document.getElementById("numero").innerHTML = "Todos os números foram sorteados";
+			} else {
+				document.getElementById("numero").innerHTML = resultado;
+			}
+			numerosSorteados.push(resultado);
+			document.getElementById("sorteados").innerHTML = numerosSorteados.join(", ");
+		}
+
+		function resetar() {
+			document.getElementById("inicio").value = "";
+			document.getElementById("fim").value = "";
+			document.getElementById("numero").innerHTML = "";
+			sorteador = null;
+			numerosSorteados = [];
+			document.getElementById("sorteados").innerHTML = "";
+		}
+	</script>
+</head>
+
+<body>
+	<h1>Sorteador de Números</h1>
+	<label for="inicio">Início:</label>
+	<input type="number" id="inicio" name="inicio">
+	<label for="fim">Fim:</label>
+	<input type="number" id="fim" name="fim">
+	<p>Número sorteado: <span id="numero"></span></p>
+	<p>Números sorteados: <span id="sorteados"></span></p>
+	<button onclick="sortear()">Sortear</button>
+	<button onclick="resetar()">Resetar</button>
+</body>
+</html>
