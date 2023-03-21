@@ -1,0 +1,46 @@
+#game {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cell {
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+    font-size: 60px;
+    text-align: center;
+    line-height: 90px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cell i {
+    font-size: 60px;
+  }
+  
+  .winning {
+    background-color: #c4ffb4;
+    animation: highlight 1s ease-in-out alternate infinite;
+  }
+  
+  @keyframes highlight {
+    from {
+      background-color: #c4ffb4;
+    }
+    to {
+      background-color: white;
+    }
+  }
+  
